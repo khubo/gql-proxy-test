@@ -1,0 +1,24 @@
+service: serverless-restapi
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage:  ${opt:stage}
+  region: us-east-1
+  lambdaHashingVersion: 20201221
+ 
+functions:
+  hello:
+    handler: handler.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+plugins:
+  - serverless-offline
